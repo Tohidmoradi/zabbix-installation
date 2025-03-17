@@ -11,7 +11,7 @@ apt update && apt install zabbix-server-mysql zabbix-frontend-php zabbix-nginx-c
 # Creating MYSQL Database for Zabbix + Give it Desired Permission  
 mysql << EOF  
 create database zabbix character set utf8 collate utf8_bin;
-create user zabbix@localhost identified by 'PackopsZBX2022';
+create user zabbix@localhost identified by 'your password';
 grant all privileges on zabbix.* to zabbix@localhost;
 flush privileges;
 EOF
@@ -22,10 +22,11 @@ log_bin_trust_function_creators = 1
 
 zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql -uzabbix -p zabbix 
 
- echo "DBPassword=PackopsZBX2022" >> /etc/zabbix/zabbix_server.conf 
+ echo "DBPassword=your password" >> /etc/zabbix/zabbix_server.conf 
 
 
 cp /etc/zabbix/nginx.conf /etc/nginx/sites-enabled/zabbix.conf
+rm -rf /etc/nginx/sites-enabled/default
 #
 ## Uncomment and Change Server name to your Desired Domain-name + Uncomment Port number 80 
 #
